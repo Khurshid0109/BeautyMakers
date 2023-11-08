@@ -11,22 +11,20 @@ namespace BeautyMakers.Services.Services.Salons;
 public class SalonService : ISalonService
 {
     private readonly ISalonRepository _repository;
-    private readonly MediaHelper _helper;
     private readonly IMapper _mapper;
 
-    public SalonService(ISalonRepository repository, IMapper mapper, 
-        MediaHelper helper)
+    public SalonService(ISalonRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
-        _helper = helper;
     }
 
     public async Task<SalonForResultDto> AddAsync(SalonForCreationDto dto)
     {
+   
         var mapped = _mapper.Map<Salon>(dto);
-        mapped.CreatedAt = DateTime.Now;
-        mapped.SalonImg = await _helper.UploadFile(dto.SalonImg);
+        mapped.CreatedAt = DateTime.UtcNow;
+        mapped.SalonImg = await MediaHelper.UploadFile(dto.SalonImg);
 
         var res = await _repository.InsertAsync(mapped);
 
@@ -43,10 +41,10 @@ public class SalonService : ISalonService
             throw new CustomException(404, "Salon is not found!");
 
         var mapped = _mapper.Map(dto, salon);
-        mapped.UpdatedAt = DateTime.Now;
+        mapped.UpdatedAt = DateTime.UtcNow;
 
         if (dto.SalonImg is not null)
-            mapped.SalonImg = await _helper.UploadFile(dto.SalonImg);
+            mapped.SalonImg = await MediaHelper.UploadFile(dto.SalonImg);
 
         await _repository.UpdateAsync(mapped);
 

@@ -5,6 +5,6 @@ public class AppointmentResult:Auditable
 {
     public long AppointmentId { get; set; }
     public Appointment Appointment { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
+    public string Comment { get; set; }
+    public int Rating { get; set; }
 }

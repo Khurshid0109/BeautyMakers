@@ -12,7 +12,6 @@ public class Appointment:Auditable
     public DateTime Date { get; set; }
     public AppointmentStatus Status { get; set; }
     public decimal Price { get; set; }
-    public string Comment { get; set; }
-    public int Rating { get; set; }
    
 }
+ 

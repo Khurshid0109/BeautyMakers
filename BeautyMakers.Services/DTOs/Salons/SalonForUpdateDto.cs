@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
-using BeautyMakers.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace BeautyMakers.Services.DTOs.Salons;
 public class SalonForUpdateDto
 {
+    [Required]
     public long OwnerId { get; set; }
-    public BeautyProfessional Owner { get; set; }
+
+    [Required]
+    [MinLength(5)]
     public string SalonName { get; set; }
+
+    [Required]
+    [MinLength(10)]
     public string Location { get; set; }
+
+    [Required]
     public IFormFile? SalonImg { get; set; }
 }

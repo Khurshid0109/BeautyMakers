@@ -7,20 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\BeautyProfessionals\" />
-    <Folder Include="DTOs\Appoinments\" />
-    <Folder Include="DTOs\AppoinmentResults\" />
-    <Folder Include="Interfaces\BeautyProfessionals\" />
-    <Folder Include="Interfaces\AppoinmentResults\" />
-    <Folder Include="Interfaces\Appoinments\" />
-    <Folder Include="Interfaces\PastWorks\" />
-    <Folder Include="Services\BeautyProfessionals\" />
-    <Folder Include="Services\Appoinments\" />
-    <Folder Include="Services\AppoinmentResults\" />
-    <Folder Include="Services\PastWorks\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />

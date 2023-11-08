@@ -3,7 +3,7 @@
 namespace BeautyMakers.Services.Helpers;
 public class MediaHelper
 {
-    public async Task<string> UploadFile(IFormFile file)
+    public static async Task<string> UploadFile(IFormFile file)
     {
         string uniqueFileName = "";
 

@@ -1,5 +1,4 @@
 ﻿using BeautyMakers.Services.DTOs.Salons;
-using BeautyMakers.Services.DTOs.Users;
 
 namespace BeautyMakers.Services.Interfaces.Salons;
 public interface ISalonService

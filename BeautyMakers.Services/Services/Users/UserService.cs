@@ -26,7 +26,7 @@ public class UserService : IUserService
             throw new CustomException(409, "User is already exists!");
 
         var mapped = _mapper.Map<User>(dto);
-        mapped.CreatedAt = DateTime.Now;
+        mapped.CreatedAt = DateTime.UtcNow;
 
         var res = await _repository.InsertAsync(mapped);
         return _mapper.Map<UserForResultDto>(res);
@@ -42,7 +42,7 @@ public class UserService : IUserService
             throw new CustomException(404, "User is not found!");
 
         var mapped = _mapper.Map(dto, user);
-        mapped.UpdatedAt = DateTime.Now;
+        mapped.UpdatedAt = DateTime.UtcNow;
 
         await _repository.UpdateAsync(mapped);
 

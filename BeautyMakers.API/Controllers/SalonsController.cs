@@ -16,7 +16,7 @@ namespace BeautyMakers.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SalonForCreationDto dto) =>
+        public async Task<IActionResult> PostAsync([FromForm] SalonForCreationDto dto) =>
           Ok(await _service.AddAsync(dto));
 
         [HttpGet]
