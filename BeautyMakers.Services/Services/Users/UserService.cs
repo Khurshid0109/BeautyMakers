@@ -5,6 +5,8 @@ using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.DTOs.Users;
 using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.Interfaces.Users;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Extentions;
 
 namespace BeautyMakers.Services.Services.Users;
 public class UserService : IUserService
@@ -63,10 +65,10 @@ public class UserService : IUserService
         return true;
     }
 
-    public async Task<IEnumerable<UserForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<UserForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var users = await _repository.SelectAll()
-            .AsNoTracking()
+            .ToPagedList(@params)
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<UserForResultDto>>(users);

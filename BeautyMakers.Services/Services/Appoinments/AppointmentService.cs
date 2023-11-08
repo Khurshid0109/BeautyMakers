@@ -5,6 +5,8 @@ using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.DTOs.Appoinments;
 using BeautyMakers.Services.Interfaces.Appoinments;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Extentions;
 
 namespace BeautyMakers.Services.Services.Appoinments;
 public class AppointmentService : IAppointmentService
@@ -78,9 +80,11 @@ public class AppointmentService : IAppointmentService
         return true;
     }
 
-    public async Task<IEnumerable<AppointmentForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<AppointmentForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var appointments = await _repository.SelectAll().ToListAsync();
+        var appointments = await _repository.SelectAll()
+            .ToPagedList(@params)
+            .ToListAsync();
 
         return _mapper.Map<IEnumerable<AppointmentForResultDto>>(appointments);
     }

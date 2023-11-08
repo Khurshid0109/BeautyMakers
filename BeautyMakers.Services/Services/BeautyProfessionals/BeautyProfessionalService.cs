@@ -5,6 +5,8 @@ using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.DTOs.BeautyProfessionals;
 using BeautyMakers.Services.Interfaces.BeautyProfessionals;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Extentions;
 
 namespace BeautyMakers.Services.Services.BeautyProfessionals;
 public class BeautyProfessionalService : IBeautyProfessionalService
@@ -68,9 +70,11 @@ public class BeautyProfessionalService : IBeautyProfessionalService
         return true;
     }
 
-    public async Task<IEnumerable<BeautyProfessionalForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<BeautyProfessionalForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var servants = await _repository.SelectAll().ToListAsync();
+        var servants = await _repository.SelectAll()
+            .ToPagedList(@params)
+            .ToListAsync();
         return _mapper.Map<IEnumerable<BeautyProfessionalForResultDto>>(servants);
     }
 

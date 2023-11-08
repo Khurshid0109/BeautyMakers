@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using BeautyMakers.Services.Configurations;
 using BeautyMakers.Services.DTOs.AppoinmentResults;
 using BeautyMakers.Services.Interfaces.AppoinmentResults;
 
@@ -20,8 +21,8 @@ namespace BeautyMakers.API.Controllers
          Ok(await _service.AddAsync(dto));
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync() =>
-           Ok(await _service.RetrieveAllAsync());
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params) =>
+           Ok(await _service.RetrieveAllAsync(@params));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id) =>

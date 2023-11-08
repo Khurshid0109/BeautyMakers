@@ -6,6 +6,8 @@ using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.DTOs.PastWorks;
 using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.Interfaces.PastWorks;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Extentions;
 
 namespace BeautyMakers.Services.Services.PastWorks;
 public class PastWorkService : IPastWorkService
@@ -75,9 +77,11 @@ public class PastWorkService : IPastWorkService
         return true;
     }
 
-    public async Task<IEnumerable<PastWorkForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<PastWorkForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var examples = await _repository.SelectAll().ToListAsync();
+        var examples = await _repository.SelectAll()
+            .ToPagedList(@params)
+            .ToListAsync();
 
         return _mapper.Map<IEnumerable<PastWorkForResultDto>>(examples);
     }

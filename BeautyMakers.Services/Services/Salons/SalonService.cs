@@ -6,6 +6,8 @@ using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.DTOs.Salons;
 using BeautyMakers.Services.Interfaces.Salons;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Extentions;
 
 namespace BeautyMakers.Services.Services.Salons;
 public class SalonService : ISalonService
@@ -66,9 +68,11 @@ public class SalonService : ISalonService
         return true;
     }
 
-    public async Task<IEnumerable<SalonForResultDto>> RetrieveAllAsync()
+    public async Task<IEnumerable<SalonForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var salons = await _repository.SelectAll().ToListAsync();
+        var salons = await _repository.SelectAll()
+            .ToPagedList(@params)
+            .ToListAsync();
 
         return _mapper.Map<IEnumerable<SalonForResultDto>>(salons);
     }
