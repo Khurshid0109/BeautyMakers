@@ -27,6 +27,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AAA", builder => builder.AllowCredentials());
 });
 
+//for Jwt authentication
+builder.Services.AddJwtService(builder.Configuration);
+//for changing swagger to enter a token
+builder.Services.AddSwaggerService();
+
 //The path for wwwroot folder
 WebHostEnvironment.WebRootPath = Path.GetFullPath("wwwroot");
 var app = builder.Build();
@@ -42,6 +47,7 @@ app.UseMiddleware<ExceptionHandlerMiddleWare>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
