@@ -43,6 +43,8 @@ public static class ServiceExtention
         services.AddScoped<IAppointmentRepository,AppointmentRepository>();
         services.AddScoped<IAppointmentService, AppointmentService>();
 
+        services.AddScoped<IAuthService, AuthService>();
+
     }
     public static void AddJwtService(this IServiceCollection services, IConfiguration configuration)
     {

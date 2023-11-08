@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 
 namespace BeautyMakers.Services.Services.Users;
-public class AuthService
+public class AuthService:IAuthService
 {
     private readonly IConfiguration _configuration;
     private readonly IUserService _userService;
