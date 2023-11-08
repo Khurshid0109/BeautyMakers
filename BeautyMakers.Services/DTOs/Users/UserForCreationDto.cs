@@ -1,0 +1,10 @@
+﻿using BeautyMakers.Domain.Enums;
+
+namespace BeautyMakers.Services.DTOs.Users;
+public class UserForCreationDto
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+    public Gender Gender { get; set; }
+}
