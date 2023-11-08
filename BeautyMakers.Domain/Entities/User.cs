@@ -8,6 +8,8 @@ public class User:Auditable
     public string Email { get; set; }
     public string Phone { get; set; }
     public Gender Gender { get; set; }
+
     public List<Appointment> Appointments { get; set; }
-    public List<BeautyProfessional> BeautyProfessionals { get; set; }
+
+    public List<BeautyProfessionalUser> BeautyProfessionalUsers { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using BeautyMakers.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeautyMakers.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231108103530_JoinTableAdded")]
+    partial class JoinTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,16 +128,10 @@ namespace BeautyMakers.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("SalonId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SalonId")
-                        .IsUnique();
 
                     b.ToTable("BeautyProfessionals");
                 });
@@ -238,6 +234,8 @@ namespace BeautyMakers.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Salons");
                 });
 
@@ -305,17 +303,6 @@ namespace BeautyMakers.Data.Migrations
                     b.Navigation("Appointment");
                 });
 
-            modelBuilder.Entity("BeautyMakers.Domain.Entities.BeautyProfessional", b =>
-                {
-                    b.HasOne("BeautyMakers.Domain.Entities.Salon", "Salon")
-                        .WithOne("Owner")
-                        .HasForeignKey("BeautyMakers.Domain.Entities.BeautyProfessional", "SalonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Salon");
-                });
-
             modelBuilder.Entity("BeautyMakers.Domain.Entities.BeautyProfessionalUser", b =>
                 {
                     b.HasOne("BeautyMakers.Domain.Entities.BeautyProfessional", "BeautyProfessional")
@@ -340,10 +327,21 @@ namespace BeautyMakers.Data.Migrations
                     b.HasOne("BeautyMakers.Domain.Entities.BeautyProfessional", "BeautyProfessional")
                         .WithMany("PastWorks")
                         .HasForeignKey("BeautyProfessionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("BeautyProfessional");
+                });
+
+            modelBuilder.Entity("BeautyMakers.Domain.Entities.Salon", b =>
+                {
+                    b.HasOne("BeautyMakers.Domain.Entities.BeautyProfessional", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("BeautyMakers.Domain.Entities.Appointment", b =>
@@ -359,12 +357,6 @@ namespace BeautyMakers.Data.Migrations
                     b.Navigation("BeautyProfessionalUsers");
 
                     b.Navigation("PastWorks");
-                });
-
-            modelBuilder.Entity("BeautyMakers.Domain.Entities.Salon", b =>
-                {
-                    b.Navigation("Owner")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BeautyMakers.Domain.Entities.User", b =>
