@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\DbDiagram\" />
   </ItemGroup>
 
   <ItemGroup>
