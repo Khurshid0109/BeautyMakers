@@ -8,6 +8,7 @@ using BeautyMakers.Services.Exceptions;
 using BeautyMakers.Services.Interfaces.PastWorks;
 using BeautyMakers.Services.Configurations;
 using BeautyMakers.Services.Extentions;
+using BeautyMakers.Services.DTOs.BeautyProfessionals;
 
 namespace BeautyMakers.Services.Services.PastWorks;
 public class PastWorkService : IPastWorkService
@@ -39,6 +40,7 @@ public class PastWorkService : IPastWorkService
         mapped.ImageUrl = await  MediaHelper.UploadFile(dto.ImageUrl);
 
         var res = await _repository.InsertAsync(mapped);
+
 
         return _mapper.Map<PastWorkForResultDto>(res);
     }

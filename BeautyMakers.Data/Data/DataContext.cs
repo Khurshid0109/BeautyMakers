@@ -28,19 +28,25 @@ public class DataContext : DbContext
            .HasForeignKey<AppointmentResult>(ar => ar.AppointmentId)
            .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<BeautyProfessional>()
-           .HasMany(bp => bp.PastWorks)
-           .WithOne(pw => pw.BeautyProfessional)
-           .HasForeignKey(pw => pw.BeautyProfessionalId)
-           .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<BeautyProfessionalUser>()
+            .HasKey(bpu => new { bpu.BeautyProfessionalId, bpu.UserId });
+
+        modelBuilder.Entity<BeautyProfessionalUser>()
+            .HasOne(bpu => bpu.BeautyProfessional)
+            .WithMany(bp => bp.BeautyProfessionalUsers)
+            .HasForeignKey(bpu => bpu.BeautyProfessionalId);
+
+        modelBuilder.Entity<BeautyProfessionalUser>()
+            .HasOne(bpu => bpu.User)
+            .WithMany(u => u.BeautyProfessionalUsers)
+            .HasForeignKey(bpu => bpu.UserId);
 
         modelBuilder.Entity<PastWork>()
-            .HasOne(pw => pw.BeautyProfessional)
-            .WithMany(bp => bp.PastWorks)
-            .HasForeignKey(pw => pw.BeautyProfessionalId)
-            .OnDelete(DeleteBehavior.Cascade);
+          .HasOne(pw => pw.BeautyProfessional)
+          .WithMany(bp => bp.PastWorks)
+          .HasForeignKey(pw => pw.BeautyProfessionalId);
 
-       
+
     }
 
     public DbSet<User> Users { get; set; }

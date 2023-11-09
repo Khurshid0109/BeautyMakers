@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace BeautyMakers.Services.DTOs.Salons;
 public class SalonForUpdateDto
 {
-    [Required]
-    public long OwnerId { get; set; }
 
     [Required]
     [MinLength(5)]

@@ -1,10 +1,11 @@
 using BeautyMakers.Data.Data;
+using BeautyMakers.API.Models;
 using BeautyMakers.API.Extentions;
 using BeautyMakers.Services.Helpers;
 using BeautyMakers.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Diagnostics;
 using BeautyMakers.API.MiddleWares;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AAA", builder => builder.AllowCredentials());
+});
+
+//Configure api url name
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(
+                                        new ConfigurationApiUrlName()));
 });
 
 //for Jwt authentication

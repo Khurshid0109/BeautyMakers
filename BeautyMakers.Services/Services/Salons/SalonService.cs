@@ -4,26 +4,27 @@ using Microsoft.EntityFrameworkCore;
 using BeautyMakers.Services.Helpers;
 using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.Exceptions;
-using BeautyMakers.Services.DTOs.Salons;
-using BeautyMakers.Services.Interfaces.Salons;
-using BeautyMakers.Services.Configurations;
 using BeautyMakers.Services.Extentions;
+using BeautyMakers.Services.DTOs.Salons;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Interfaces.Salons;
 
 namespace BeautyMakers.Services.Services.Salons;
 public class SalonService : ISalonService
 {
-    private readonly ISalonRepository _repository;
     private readonly IMapper _mapper;
+    private readonly ISalonRepository _repository;
 
-    public SalonService(ISalonRepository repository, IMapper mapper)
+    public SalonService(ISalonRepository repository, IMapper mapper, 
+        IUserRepository userRepository, IBeautyProfessionalRepository beautyProfessionalRepository)
     {
-        _repository = repository;
         _mapper = mapper;
+        _repository = repository;
     }
 
     public async Task<SalonForResultDto> AddAsync(SalonForCreationDto dto)
     {
-   
+
         var mapped = _mapper.Map<Salon>(dto);
         mapped.CreatedAt = DateTime.UtcNow;
         mapped.SalonImg = await MediaHelper.UploadFile(dto.SalonImg);

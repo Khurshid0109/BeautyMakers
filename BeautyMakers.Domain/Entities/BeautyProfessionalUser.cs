@@ -3,9 +3,9 @@
 namespace BeautyMakers.Domain.Entities;
 public class BeautyProfessionalUser:Auditable
 {
-    public int BeautyProfessionalId { get; set; }
+    public long BeautyProfessionalId { get; set; }
     public BeautyProfessional BeautyProfessional { get; set; }
 
-    public int UserId { get; set; }
+    public long UserId { get; set; }
     public User User { get; set; }
 }

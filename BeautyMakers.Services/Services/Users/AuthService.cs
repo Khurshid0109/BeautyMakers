@@ -1,12 +1,11 @@
-﻿
-using BeautyMakers.Services.DTOs.Users;
-using BeautyMakers.Services.Exceptions;
-using BeautyMakers.Services.Interfaces.Users;
-using Microsoft.Extensions.Configuration;
+﻿using System.Text;
+using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using BeautyMakers.Services.DTOs.Users;
+using BeautyMakers.Services.Exceptions;
+using Microsoft.Extensions.Configuration;
+using BeautyMakers.Services.Interfaces.Users;
 
 namespace BeautyMakers.Services.Services.Users;
 public class AuthService:IAuthService

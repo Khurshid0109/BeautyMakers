@@ -1,4 +1,4 @@
-﻿using BeautyMakers.Domain.Entities;
+﻿using BeautyMakers.Services.DTOs.BeautyProfessionals;
 
 namespace BeautyMakers.Services.DTOs.PastWorks;
 public class PastWorkForResultDto

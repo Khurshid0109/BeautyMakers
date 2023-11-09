@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using BeautyMakers.Services.Configurations;
 using BeautyMakers.Services.DTOs.BeautyProfessionals;
 using BeautyMakers.Services.Interfaces.BeautyProfessionals;
-using BeautyMakers.Services.Configurations;
 
 namespace BeautyMakers.API.Controllers
 {
@@ -17,7 +17,7 @@ namespace BeautyMakers.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] BeautyProfessionalForCreationDto dto) =>
+        public async Task<IActionResult> PostAsync([FromForm] BeautyProfessionalForCreationDto dto) =>
            Ok(await _service.AddAsync(dto));
 
         [HttpGet]
@@ -33,7 +33,7 @@ namespace BeautyMakers.API.Controllers
             Ok(await _service.RetrieveByEmailAsync(email));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromBody] BeautyProfessionalForUpdateDto dto) =>
+        public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromForm] BeautyProfessionalForUpdateDto dto) =>
             Ok(await _service.ModifyAsync(id, dto));
 
         [HttpDelete("{id}")]

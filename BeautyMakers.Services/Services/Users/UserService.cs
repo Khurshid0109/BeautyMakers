@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using BeautyMakers.Domain.Entities;
+using BeautyMakers.Services.Helpers;
 using Microsoft.EntityFrameworkCore;
 using BeautyMakers.Data.IRepositories;
 using BeautyMakers.Services.DTOs.Users;
 using BeautyMakers.Services.Exceptions;
-using BeautyMakers.Services.Interfaces.Users;
-using BeautyMakers.Services.Configurations;
 using BeautyMakers.Services.Extentions;
+using BeautyMakers.Services.Configurations;
+using BeautyMakers.Services.Interfaces.Users;
 
 namespace BeautyMakers.Services.Services.Users;
 public class UserService : IUserService
@@ -30,6 +31,9 @@ public class UserService : IUserService
         var mapped = _mapper.Map<User>(dto);
         mapped.CreatedAt = DateTime.UtcNow;
 
+        if (dto.UserImg is not null)
+            mapped.UserImg = await MediaHelper.UploadFile(dto.UserImg);
+
         var res = await _repository.InsertAsync(mapped);
         return _mapper.Map<UserForResultDto>(res);
     }
@@ -46,6 +50,9 @@ public class UserService : IUserService
         var mapped = _mapper.Map(dto, user);
         mapped.UpdatedAt = DateTime.UtcNow;
 
+        if (dto.UserImg is not null)
+            mapped.UserImg = await MediaHelper.UploadFile(dto.UserImg);
+    
         await _repository.UpdateAsync(mapped);
 
         return _mapper.Map<UserForResultDto>(mapped);

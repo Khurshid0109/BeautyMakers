@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeautyMakers.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231108105610_ProblemDone")]
-    partial class ProblemDone
+    [Migration("20231109011307_UserImgAdded")]
+    partial class UserImgAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,6 +128,9 @@ namespace BeautyMakers.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ProfessionalImage")
+                        .HasColumnType("text");
+
                     b.Property<long>("SalonId")
                         .HasColumnType("bigint");
 
@@ -136,43 +139,31 @@ namespace BeautyMakers.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SalonId")
-                        .IsUnique();
+                    b.HasIndex("SalonId");
 
                     b.ToTable("BeautyProfessionals");
                 });
 
             modelBuilder.Entity("BeautyMakers.Domain.Entities.BeautyProfessionalUser", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("BeautyProfessionalId")
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("BeautyProfessionalId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("BeautyProfessionalId1")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.HasKey("BeautyProfessionalId", "UserId");
 
-                    b.Property<long>("UserId1")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BeautyProfessionalId1");
-
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("beautyProfessionalUsers");
                 });
@@ -224,9 +215,6 @@ namespace BeautyMakers.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("OwnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("SalonImg")
                         .IsRequired()
                         .HasColumnType("text");
@@ -272,6 +260,9 @@ namespace BeautyMakers.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UserImg")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -310,8 +301,8 @@ namespace BeautyMakers.Data.Migrations
             modelBuilder.Entity("BeautyMakers.Domain.Entities.BeautyProfessional", b =>
                 {
                     b.HasOne("BeautyMakers.Domain.Entities.Salon", "Salon")
-                        .WithOne("Owner")
-                        .HasForeignKey("BeautyMakers.Domain.Entities.BeautyProfessional", "SalonId")
+                        .WithMany("Professionals")
+                        .HasForeignKey("SalonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -322,13 +313,13 @@ namespace BeautyMakers.Data.Migrations
                 {
                     b.HasOne("BeautyMakers.Domain.Entities.BeautyProfessional", "BeautyProfessional")
                         .WithMany("BeautyProfessionalUsers")
-                        .HasForeignKey("BeautyProfessionalId1")
+                        .HasForeignKey("BeautyProfessionalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BeautyMakers.Domain.Entities.User", "User")
                         .WithMany("BeautyProfessionalUsers")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -365,8 +356,7 @@ namespace BeautyMakers.Data.Migrations
 
             modelBuilder.Entity("BeautyMakers.Domain.Entities.Salon", b =>
                 {
-                    b.Navigation("Owner")
-                        .IsRequired();
+                    b.Navigation("Professionals");
                 });
 
             modelBuilder.Entity("BeautyMakers.Domain.Entities.User", b =>

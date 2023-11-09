@@ -1,4 +1,5 @@
 ﻿using BeautyMakers.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace BeautyMakers.Services.DTOs.BeautyProfessionals;
 public class BeautyProfessionalForCreationDto
@@ -9,4 +10,6 @@ public class BeautyProfessionalForCreationDto
     public Gender Gender { get; set; }
     public string Description { get; set; }
     public string Experience { get; set; }
+    public long SalonId { get;set; }
+    public IFormFile? ProfessionalImg { get; set; }
 }

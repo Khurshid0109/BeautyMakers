@@ -8,4 +8,5 @@ public class UserForResultDto
     public string Email { get; set; }
     public string Phone { get; set; }
     public Gender Gender { get; set; }
+    public string UserImg { get; set; }
 }

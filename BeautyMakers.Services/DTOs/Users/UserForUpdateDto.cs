@@ -1,6 +1,7 @@
 ﻿using BeautyMakers.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using BeautyMakers.Services.Helpers.CustomAttributes;
+using Microsoft.AspNetCore.Http;
 
 namespace BeautyMakers.Services.DTOs.Users;
 public class UserForUpdateDto
@@ -17,6 +18,7 @@ public class UserForUpdateDto
     [Required]
     public string Phone { get; set; }
 
-    [Required]
     public Gender Gender { get; set; }
+
+    public IFormFile? UserImg { get; set; }
 }

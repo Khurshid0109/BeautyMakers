@@ -30,7 +30,7 @@ namespace BeautyMakers.API.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromBody] SalonForUpdateDto dto) =>
+        public async Task<IActionResult> UpdateAsync([FromRoute] long id, [FromForm] SalonForUpdateDto dto) =>
             Ok(await _service.ModifyAsync(id, dto));
 
         [HttpDelete("{id}")]

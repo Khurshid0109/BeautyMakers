@@ -1,4 +1,6 @@
-﻿using BeautyMakers.Domain.Enums;
+﻿using BeautyMakers.Domain.Entities;
+using BeautyMakers.Domain.Enums;
+using BeautyMakers.Services.DTOs.Salons;
 
 namespace BeautyMakers.Services.DTOs.BeautyProfessionals;
 public class BeautyProfessionalForResultDto
@@ -9,5 +11,7 @@ public class BeautyProfessionalForResultDto
     public string Phone { get; set; }
     public Gender Gender { get; set; }
     public string Description { get; set; }
+    public SalonForResultDto Salon { get; set; }
     public string Experience { get; set; }
+    public string ProfessionalImg { get; set; }
 }

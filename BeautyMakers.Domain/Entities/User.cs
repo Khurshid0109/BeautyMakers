@@ -8,6 +8,7 @@ public class User:Auditable
     public string Email { get; set; }
     public string Phone { get; set; }
     public Gender Gender { get; set; }
+    public string? UserImg { get; set; }
 
     public List<Appointment> Appointments { get; set; }
 
