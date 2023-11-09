@@ -6,6 +6,7 @@ using BeautyMakers.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
 using BeautyMakers.API.MiddleWares;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,15 @@ builder.Services.AddSwaggerService();
 
 //The path for wwwroot folder
 WebHostEnvironment.WebRootPath = Path.GetFullPath("wwwroot");
+
+// Logger
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -6,10 +6,13 @@ namespace BeautyMakers.API.MiddleWares
     public class ExceptionHandlerMiddleWare
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleWare> _logger;
 
-        public  ExceptionHandlerMiddleWare(RequestDelegate next)
+        public ExceptionHandlerMiddleWare(RequestDelegate next,
+            ILogger<ExceptionHandlerMiddleWare> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -29,6 +32,7 @@ namespace BeautyMakers.API.MiddleWares
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{ex}\n\n");
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsJsonAsync(new Response
                 {
