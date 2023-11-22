@@ -1,7 +1,6 @@
-﻿using BeautyMakers.Services.DTOs.Users;
+﻿using Microsoft.AspNetCore.Mvc;
+using BeautyMakers.Services.DTOs.Users;
 using BeautyMakers.Services.Interfaces.Users;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BeautyMakers.API.Controllers
 {

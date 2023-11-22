@@ -1,3 +1,4 @@
+using Serilog;
 using BeautyMakers.Data.Data;
 using BeautyMakers.API.Models;
 using BeautyMakers.API.Extentions;
@@ -6,7 +7,6 @@ using BeautyMakers.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
 using BeautyMakers.API.MiddleWares;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
